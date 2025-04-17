@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_ecommerce__products
+    description: ""
+    columns:
+      - name: product_id
+        description: "Primary key"
+        tests:
+          - not_null
+          - unique
+
+      - name: cost
+        description: ""
+        tests:
+          - not_null
+
+      - name: retail_price
+        description: ""
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+
+      - name: department
+        description: "Whether the item is Mensware or Womenswear"
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+              - Men
+              - Women
+              quote: true
+
+      - name: brand
+        description: ""
