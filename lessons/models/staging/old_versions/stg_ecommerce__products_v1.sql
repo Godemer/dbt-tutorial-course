@@ -12,7 +12,6 @@ SELECT
         retail_price,
         department,
         sku,
-        distribution_center_id,
-        brand
+        distribution_center_id
 
 FROM source

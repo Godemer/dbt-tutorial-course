@@ -33,4 +33,16 @@ models:
               quote: true
 
       - name: brand
-        description: ""
+        description: "Brand of the product"
+
+    latest_version: 2
+    versions:
+      - v: 1
+        columns:
+          - include: all
+            exclude: [brand]
+      - v: 2
+        config:
+          alias: stg_ecommerce__products
+        columns:
+          - include: all
