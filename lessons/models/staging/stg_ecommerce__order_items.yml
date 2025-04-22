@@ -5,8 +5,8 @@ models:
       - name: order_item_id
         description: "Primary key"
         tests:
-          - not_null
-          - unique
+          - primary_key:
+              severity: error
 
       - name: order_id
         description: ""

@@ -22,7 +22,6 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
-
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 models:
@@ -31,3 +30,8 @@ models:
     +persist_docs:
       relation: true
       columns: true
+    +hours_to_expiration: 168
+
+tests:
+  lessons:
+    +severity: error

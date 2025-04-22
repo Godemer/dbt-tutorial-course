@@ -7,8 +7,8 @@ models:
       - name: order_id
         description: "Primary key"
         tests:
-          - not_null
-          - unique
+          - primary_key:
+              severity: error
 
       - name: user_id
         description: "Customer id"
@@ -38,18 +38,27 @@ models:
         tests:
           - not_null:
               where: "status = 'Returned'"
-
+          - dbt_utils.expression_is_true:
+              expression: ">= delivered_at"
+              where: "returned_at IS NOT NULL"
+            
       - name: shipped_at
         description: "When was the order shipped?"
         tests:
           - not_null:
               where: "delivered_at IS NOT NULL OR status = 'Shipped'"
+          - dbt_utils.expression_is_true:
+              expression: ">= created_at"
+              where: "shipped_at IS NOT NULL"
 
       - name: delivered_at
         description: "When was the order delivered?"
         tests:
           - not_null:
               where: "returned_at IS NOT NULL OR status = 'Complete'"
+          - dbt_utils.expression_is_true:
+              expression: ">= shipped_at"
+              where: "delivered_at IS NOT NULL"
 
       - name: num_of_item
         description: "Number of items"

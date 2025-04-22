@@ -41,6 +41,11 @@ models:
 
       - name: item_profit
         description: ""
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: "= (item_sale_price - product_cost)"
+              severity: error
 
       - name: item_discount
         description: "product_retail_price minus item_sale_price"
@@ -48,4 +53,4 @@ models:
           - not_null
           - dbt_utils.expression_is_true:
               expression: "= (product_retail_price - item_sale_price)"
-              severity: warn
+              severity: error
